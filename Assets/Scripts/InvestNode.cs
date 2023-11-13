@@ -5,10 +5,13 @@ using UnityEngine;
 public class InvestNode : MonoBehaviour
 {
     //X Should never change, however X WILL, so we should plan for such
-    public int maxY;
-    public int minY;
+    public float maxY = 0;
+    public float minY = 0;
     public void UpdateY(float value, float max, float min)
     {
-        //Find where the value falls on a scale from Max to min
+        if (value == float.NaN) { value = 0; }
+        //Find where the value falls on a scale from Max to Min
+        float temp = (value - min) / (max - min) * (maxY - minY) + minY;
+        gameObject.transform.position = new Vector3(transform.position.x, temp, transform.position.z);
     }
 }
