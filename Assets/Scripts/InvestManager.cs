@@ -136,8 +136,23 @@ public class InvestManager : MonoBehaviour
 
     public void passHour()
     {
+        //Calculate multiplier, then add skew
         float multiplier = Random.Range(1 - variation, 1 + variation);
         multiplier += skew;
+        //Keep multiplier in range
+        if (multiplier > (1 + variation)) multiplier = 1+variation;
+        if (multiplier < (1 - variation)) multiplier = 1 - variation;
+        //Update stock value
         updateStock(multiplier);
+        //Update skew
+        if(skew == 0) { return; }
+        else if(skew < 0)
+        {
+            skew = Random.Range(skew, 0);
+        }
+        else
+        {
+            skew = Random.Range(0, skew);
+        }
     }
 }

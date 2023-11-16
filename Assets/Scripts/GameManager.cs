@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject HackMenu;
     public GameObject stockGUIMenu;
     public GameObject endDayObject;
-    public EndDayMenu EndDay;
+    public GameObject LoseMenu;
+    public Scoreable EndDay;
     public GameObject Pause;
     public GameObject Win;
     //Chosen by player at beginning of day
@@ -49,11 +50,15 @@ public class GameManager : MonoBehaviour
         instance = this;
         InvestMenu.SetActive(true);
         HackMenu.SetActive(false);
+        endDayObject.SetActive(false);
+        LoseMenu.SetActive(false);
+        Pause.SetActive(false);
+        Win.SetActive(false);
         //Do some stuff
         investManager = investRubric.CloneViaFakeSerialization();
         //Start Day 1
         newDay();
-        endDayObject.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -120,6 +125,7 @@ public class GameManager : MonoBehaviour
     {
         //Hide End Day if up
         endDayObject.SetActive(false);
+        Win.SetActive(false);
         //Reset Earnings and Expenditures
         gains = 0;
         expenditure = 0;
@@ -167,31 +173,35 @@ public class GameManager : MonoBehaviour
         totalExpenditure += expenditure;
         totalGains += gains;
         //Update Displayed Score
-        EndDay.UpdateDisplay(score, money, gains, expenditure, currentRent);
+        //EndDay.UpdateDisplay(score, money, gains, expenditure, currentRent);
+        string[] endValues = { "Score: " + Mathf.FloorToInt(score), "Remaining: " + money.ToString("c2"), 
+            "Profit: + " + gains.ToString("c2"), "Spendings: - " + expenditure.ToString("c2"), 
+            "Rent: " + currentRent.ToString("c2") };
+        EndDay.updateTexts(endValues);
         //Check if broke after payment
         //Also check if Day 8 and should display "Win"
-        //if (money < 10)
-        //{
-        //    //You lose
-        //    lose();
-        //}
-        //else if (day == 7)
-        //{
-        //    //You win
-        //    win();
-        //}
-        //else if (money < 10)
-        //{
-        //    //If you have perfect amount last day, you win
-        //    //otherwise, you lose, as you can't make money
-        //    //the next day
-        //    lose();
-        //}
-        //else
-        //{
+        if (money < 10)
+        {
+            //You lose
+            lose();
+        }
+        else if (day == 7)
+        {
+            //You win
+            win();
+        }
+        else if (money < 10)
+        {
+            //If you have perfect amount last day, you win
+            //otherwise, you lose, as you can't make money
+            //the next day
+            lose();
+        }
+        else
+        {
             //Trigger New Day
             endDayObject.SetActive(true);
-        //}
+        }
     }
 
     private void updateRent()
@@ -211,23 +221,21 @@ public class GameManager : MonoBehaviour
     void lose()
     {
         //Show lose screen
-        
+        Scoreable score = LoseMenu.GetComponent<Scoreable>();
         //Set total score
-
+        string[] newScores = {"Score: " + totalScore};
+        score.updateTexts(newScores);
+        LoseMenu.SetActive(true);
     }
 
-    void win()
+    public void win()
     {
         //Show win screen
-
+        Win.SetActive(true);
         //Set total score
-
-        //Show endless button
-        if(money > 0)
-        {
-            //If money > 0, allow it to be clicked
-
-        }
+        Scoreable score = Win.GetComponent<Scoreable>();
+        string[] newScores = { "Score: " + totalScore };
+        score.updateTexts(newScores);
     }
 
     public void endless()
