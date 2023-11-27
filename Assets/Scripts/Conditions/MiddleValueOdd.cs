@@ -7,7 +7,7 @@ public class MiddleValueOdd : Condition
     bool oddMiddle = false;
     public void initialize(string correctAnswer)
     {
-        char c = correctAnswer.ToCharArray()[2];
+        char c = correctAnswer.ToCharArray()[1];
         oddMiddle = (c == '1' || c == '3' || c == '5' || c == '7' || c == '9');
     }
     public string getText()
@@ -25,7 +25,7 @@ public class MiddleValueOdd : Condition
     }
     public bool requirement(string input)
     {
-        char c = input.ToCharArray()[2];
+        char c = input.ToCharArray()[1];
         bool temp = (c == '1' || c == '3' || c == '5' || c == '7' || c == '9');
         return (temp == oddMiddle);
     }
