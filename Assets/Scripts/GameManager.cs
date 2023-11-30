@@ -25,10 +25,13 @@ public class GameManager : MonoBehaviour
     public InvestManager investManager;
     public InvestManager investRubric;
     public TextMeshPro Balance;
+    public TextMeshPro Multiplier;
     public TextMeshPro time;
     public TextMeshPro StockName;
     public InvestManager[] stockOptions;
     public StockOption[] stockMenuOptions;
+    public GameObject buttonBlocker;
+    public int multiplier = 1;
     
 
     float gains = 0;
@@ -53,6 +56,7 @@ public class GameManager : MonoBehaviour
         endDayObject.SetActive(false);
         LoseMenu.SetActive(false);
         Pause.SetActive(false);
+        buttonBlocker.SetActive(false);
         Win.SetActive(false);
         //Do some stuff
         investManager = investRubric.CloneViaFakeSerialization();
@@ -70,7 +74,14 @@ public class GameManager : MonoBehaviour
         }
         if (isPaused)
         {
-
+            buttonBlocker.SetActive(true);
+        }
+        else
+        {
+            if (buttonBlocker.activeSelf)
+            {
+                buttonBlocker.SetActive(false);
+            }
         }
         int tempHour = hour + 6;
         if(tempHour > 12)
@@ -245,7 +256,7 @@ public class GameManager : MonoBehaviour
     public void endless()
     {
         //Hide Win Screen
-
+        Win.SetActive(false);
         //Trigger new day
         newDay();
     }
@@ -267,6 +278,12 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void investButton()
+    {
+        float amount = 10 * multiplier;
+        invest(amount);
+    }
+
     public void invest(float amount)
     {
         //No investing nonexistant money
@@ -278,6 +295,21 @@ public class GameManager : MonoBehaviour
         Balance.text = "Rent: " + currentRent.ToString("c2") + " Invested: " + investManager.getAmountInvested().ToString("c2") + " Balance: " + money.ToString("c2");
         updateBalance();
         investManager.updateNodes();
+    }
+
+    public void updateMultiplier()
+    {
+        int temp = multiplier * 10;
+        if((money/(temp*10)) >= 1)
+        {
+            multiplier = temp;
+        }
+        else
+        {
+            multiplier = 1;
+        }
+        //Update Multiplier Button
+        Multiplier.text = "x" + multiplier;
     }
 
     public void cashOut()
@@ -308,6 +340,12 @@ public class GameManager : MonoBehaviour
     {
         string temp = generatePrefix() + " " + generateSuffix();
         return temp;
+    }
+
+    public void toggleQuitBox(bool state)
+    {
+        Pause.SetActive(state);
+        isPaused = state;
     }
 
     public string generatePrefix()

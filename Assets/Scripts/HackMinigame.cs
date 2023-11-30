@@ -12,7 +12,38 @@ public class HackMinigame : MonoBehaviour
     public Scoreable answerTexts;
     public Scoreable questionTexts;
     public TextMeshPro attemptsLeft;
+    public TextMeshPro timer;
     Condition[] conditions = new Condition[3];
+    int timeLeft = 10;
+    float timeSinceLastSecond = 0;
+    public int minTime = 20;
+    public int maxTime = 41;
+    int numOfAns = 10;
+
+    public void Update()
+    {
+        timeSinceLastSecond += Time.deltaTime;
+        if(timeSinceLastSecond >= 1)
+        {
+            //Tick a second
+            timeLeft -= 1;
+            //Update the timer
+            updateTimer();
+            //Reduce time since last second by 1 second
+            timeSinceLastSecond -= 1;
+        } 
+        if(timeLeft <= 0)
+        {
+            //Lose minigame
+            loseMinigame();
+        }
+    }
+
+    public void updateTimer()
+    {
+        //Update Timer
+        timer.text = "Time: " + timeLeft;
+    }
 
     //Load Minigame
     public void loadMinigame()
@@ -28,23 +59,25 @@ public class HackMinigame : MonoBehaviour
     public void GenerateMinigame()
     {
         //Reset Attempts
-        attempts = 1;
-        attemptsLeft.text = "Attempt: " + attempts;
+        attempts = 0;
+        attemptsLeft.text = "Attempt: " + (3 - attempts);
+        timeLeft = Random.Range(minTime, maxTime);
+        updateTimer();
         //Clear conditions
         conditions = new Condition[questionTexts.tmproTexts.Length];
         //Determine a correct answer
         string correctAnswer = randomString(true);
-        string[] answers = new string[5];
+        string[] answers = new string[numOfAns];
         string[] rules = new string[conditions.Length]; ;
-        answers[4] = correctAnswer;
+        answers[numOfAns - 1] = correctAnswer;
         //Choose 3 rules
         for(int i = 0; i < conditions.Length; i++)
         {
             conditions[i] = chooseRule(i, correctAnswer);
             rules[i] = conditions[i].getText();
         }
-        //Generate 4 random values
-        for(int i = 0; i < 4; i++)
+        //Generate the rest of the values
+        for(int i = 0; i < numOfAns - 1; i++)
         {
             answers[i] = randomString(false);
         }
@@ -170,11 +203,12 @@ public class HackMinigame : MonoBehaviour
 
     public void wrongAnswer()
     {
-        attemptsLeft.text = "Attempt: " + attempts;
+        
         //3 Attempts, if failed 3 times, lose
         if (attempts < 3)
         {
             attempts += 1;
+            attemptsLeft.text = "Attempt: " + (3 - attempts);
         }
         else
         {
