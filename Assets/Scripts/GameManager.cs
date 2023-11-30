@@ -68,6 +68,10 @@ public class GameManager : MonoBehaviour
         {
             endDay();
         }
+        if (isPaused)
+        {
+
+        }
         int tempHour = hour + 6;
         if(tempHour > 12)
         {
