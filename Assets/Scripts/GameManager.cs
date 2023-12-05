@@ -292,7 +292,6 @@ public class GameManager : MonoBehaviour
         removeMoney(amount);
         investManager.invest(amount);
         //Update Text
-        Balance.text = "Rent: " + currentRent.ToString("c2") + " Invested: " + investManager.getAmountInvested().ToString("c2") + " Balance: " + money.ToString("c2");
         updateBalance();
         investManager.updateNodes();
     }
@@ -333,7 +332,7 @@ public class GameManager : MonoBehaviour
 
     public void updateBalance()
     {
-        Balance.text = "Invested: " + investManager.getAmountInvested().ToString("c2") + " Balance: " + money.ToString("c2");
+        Balance.text = "Rent: " + currentRent.ToString("c2") + " Invested: " + investManager.getAmountInvested().ToString("c2") + " Balance: " + money.ToString("c2");
     }
 
     public string generateStockName()

@@ -29,7 +29,7 @@ public class InvestManager : MonoBehaviour
     public InvestManager initializeNewManager(InvestManager clone)
     {
         //Generate a random variation
-        clone.variation = Random.Range(0.2f, 0.75f);
+        clone.variation = Random.Range(0.10f, 0.20f);
         //Generate a random base stock price
         float startPrice = Random.Range(100, 500);
         //Generate 10 random invest points using a base value and a multiplier within range

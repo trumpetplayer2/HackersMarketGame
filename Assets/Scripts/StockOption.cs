@@ -11,6 +11,6 @@ public class StockOption : MonoBehaviour
     public void UpdateDisplay(InvestManager stock)
     {
         StockName.text = stock.stockName;
-        StockRange.text = (1 - stock.variation).ToString("0.0") + "-" + (1 + stock.variation).ToString("0.0");
+        StockRange.text = (1 - stock.variation).ToString("0.00") + "-" + (1 + stock.variation).ToString("0.00");
     }
 }

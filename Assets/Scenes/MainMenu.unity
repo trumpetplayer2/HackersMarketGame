@@ -5090,7 +5090,7 @@ GameObject:
   - component: {fileID: 1799179414}
   - component: {fileID: 1799179413}
   - component: {fileID: 1799179418}
-  - component: {fileID: 1799179417}
+  - component: {fileID: 1799179419}
   m_Layer: 0
   m_Name: Start (1)
   m_TagString: Untagged
@@ -5200,7 +5200,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1799179419}
         m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
         m_MethodName: SwitchScenes
         m_Mode: 5
@@ -5276,19 +5276,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1799179417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799179410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 371b1a6e3a8170d4fad087f31087a730, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 1799179418}
 --- !u!82 &1799179418
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5385,6 +5372,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1799179419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799179410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c92e0c5e112e0f4db1adfb033fd2026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1981217205
 GameObject:
   m_ObjectHideFlags: 0
