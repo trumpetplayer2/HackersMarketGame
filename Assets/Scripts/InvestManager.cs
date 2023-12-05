@@ -48,6 +48,7 @@ public class InvestManager : MonoBehaviour
         }
         clone.range = range;
         clone.line = line;
+        clone.skew = 0;
 
         return clone;
     }

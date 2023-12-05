@@ -19,7 +19,7 @@ public class Vowel : Condition
     }
     public string getText()
     {
-        return "There are " + amount + " vowels";
+        return "There are " + amount + " vowels (Including Y)";
     }
     public bool requirement(string input)
     {

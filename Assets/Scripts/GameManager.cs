@@ -41,7 +41,8 @@ public class GameManager : MonoBehaviour
     float totalExpenditure = 0;
     float totalScore = 0;
     int hour = 0;
-    bool isPaused = false;
+    bool isPaused = true;
+    bool endlessActive = false;
 
    
 
@@ -51,18 +52,23 @@ public class GameManager : MonoBehaviour
     {
         //Initialize the scene
         instance = this;
-        InvestMenu.SetActive(true);
+        InvestMenu.SetActive(false);
         HackMenu.SetActive(false);
         endDayObject.SetActive(false);
         LoseMenu.SetActive(false);
         Pause.SetActive(false);
-        buttonBlocker.SetActive(false);
+        buttonBlocker.SetActive(true);
         Win.SetActive(false);
+        
+    }
+
+    public void startFirstDay()
+    {
+        InvestMenu.SetActive(true);
         //Do some stuff
         investManager = investRubric.CloneViaFakeSerialization();
         //Start Day 1
         newDay();
-        
     }
 
     // Update is called once per frame
@@ -200,7 +206,7 @@ public class GameManager : MonoBehaviour
             //You lose
             lose();
         }
-        else if (day == 7)
+        else if ((day >= 7 || money >= 1000000) && !endlessActive)
         {
             //You win
             win();
@@ -257,6 +263,7 @@ public class GameManager : MonoBehaviour
     {
         //Hide Win Screen
         Win.SetActive(false);
+        endlessActive = true;
         //Trigger new day
         newDay();
     }
@@ -322,6 +329,7 @@ public class GameManager : MonoBehaviour
         if (isPaused) { return; }
         int temp = hour;
         hour += hours;
+        if (hour > 16) hour = 16;
         //Update stocks
         for (int i = temp; i < hour; i++)
         {
@@ -350,7 +358,7 @@ public class GameManager : MonoBehaviour
     public string generatePrefix()
     {
         string temp = "";
-            int rng = Mathf.FloorToInt(Random.Range(1, 10));
+            int rng = Mathf.FloorToInt(Random.Range(1, 11));
         switch (rng)
         {
             case 1:
@@ -393,7 +401,7 @@ public class GameManager : MonoBehaviour
     public string generateSuffix()
     {
         string temp = "";
-        int rng = Mathf.FloorToInt(Random.Range(1, 10));
+        int rng = Mathf.FloorToInt(Random.Range(1, 11));
         switch (rng)
         {
             case 1:

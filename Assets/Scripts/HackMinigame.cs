@@ -219,12 +219,14 @@ public class HackMinigame : MonoBehaviour
     public void winMinigame()
     {
         manager.skew += rigChance/attempts;
+        GameManager.instance.passTime(3);
         //Restart
         loadMinigame();
     }
 
     public void loseMinigame()
     {
+        GameManager.instance.passTime(3);
         manager.skew -= rigChance;
         //Restart
         loadMinigame();
