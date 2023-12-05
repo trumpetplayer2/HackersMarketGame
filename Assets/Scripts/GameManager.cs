@@ -329,7 +329,7 @@ public class GameManager : MonoBehaviour
         if (isPaused) { return; }
         int temp = hour;
         hour += hours;
-        if (hour > 16) hour = 16;
+        if (hour > 17) hour = 17;
         //Update stocks
         for (int i = temp; i < hour; i++)
         {
